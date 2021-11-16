@@ -13,14 +13,16 @@ RUN mkdir /user && \
 FROM scratch as scratch
 COPY --from=builder /go/src/github.com/prometheus/memcached_exporter/memcached_exporter /bin/memcached_exporter
 COPY --from=builder /user/group /user/passwd /etc/
+COPY ./entrypoint.sh ./entrypoint.sh
 
 EXPOSE      9100
 USER        nobody
-ENTRYPOINT  [ "/bin/memcached_exporter" ]
+ENTRYPOINT  [ "./entrypoint.sh" ]
 
 FROM quay.io/sysdig/sysdig-mini-ubi:1.1.14 as ubi
 COPY --from=builder /go/src/github.com/prometheus/memcached_exporter/memcached_exporter /bin/memcached_exporter
+COPY ./entrypoint.sh ./entrypoint.sh
 
 USER       nobody
-ENTRYPOINT ["/bin/memcached_exporter"]
+ENTRYPOINT ["./entrypoint.sh"]
 EXPOSE     9150
