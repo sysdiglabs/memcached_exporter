@@ -19,7 +19,7 @@ EXPOSE      9100
 USER        nobody
 ENTRYPOINT  [ "./entrypoint.sh" ]
 
-FROM quay.io/sysdig/sysdig-mini-ubi:1.2.12 as ubi
+FROM quay.io/sysdig/sysdig-mini-ubi:1.3.0 as ubi
 COPY --from=builder /go/src/github.com/prometheus/memcached_exporter/memcached_exporter /bin/memcached_exporter
 COPY ./entrypoint.sh ./entrypoint.sh
 
