@@ -15,7 +15,7 @@ COPY --from=builder /go/src/github.com/prometheus/memcached_exporter/memcached_e
 COPY --from=builder /user/group /user/passwd /etc/
 COPY ./entrypoint.sh ./entrypoint.sh
 
-EXPOSE      9100
+EXPOSE      9150
 USER        nobody
 ENTRYPOINT  [ "./entrypoint.sh" ]
 
