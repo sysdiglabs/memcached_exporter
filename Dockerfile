@@ -1,4 +1,4 @@
-FROM golang:1.18.3 as builder
+FROM golang:1.20.4 as builder
 
 WORKDIR /go/src/github.com/prometheus/memcached_exporter
 
@@ -19,7 +19,7 @@ EXPOSE      9150
 USER        nobody
 ENTRYPOINT  [ "./entrypoint.sh" ]
 
-FROM quay.io/sysdig/sysdig-mini-ubi:1.4.7 as ubi
+FROM quay.io/sysdig/sysdig-mini-ubi:1.4.11 as ubi
 COPY --from=builder /go/src/github.com/prometheus/memcached_exporter/memcached_exporter /bin/memcached_exporter
 COPY ./entrypoint.sh ./entrypoint.sh
 
